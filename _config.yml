@@ -1,0 +1,5 @@
+title: My Blog
+description: A simple blog hosted on GitHub Pages
+baseurl: "" # keep this empty unless using a subpath
+url: "https://leadingyu.github.io"
+theme: minima

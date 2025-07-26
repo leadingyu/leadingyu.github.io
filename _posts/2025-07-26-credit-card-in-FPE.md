@@ -57,14 +57,6 @@ There are **multiple FPE algorithms**. 1 common, standards-based approache
 
 
 ```mermaid
-graph LR
-   A --> B
-   A -->C
-   C -->D
-
-```
-
-```mermaid
 flowchart TD
     User[User Entry (Card #)] -->|TLS/HTTPS| API[API Gateway]
     API --> FPE[Encrypt Middle Digits (FF1/FF3)]

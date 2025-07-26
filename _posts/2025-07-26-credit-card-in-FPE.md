@@ -50,6 +50,15 @@ There are **multiple FPE algorithms**. 1 common, standards-based approache
 ## 4. **Example System Design (Simplified):**
 
 ```mermaid
+graph TD;
+        A-->B;
+        A-->C;
+        B-->D;
+        C-->D;
+```
+
+
+```mermaid
 flowchart TD
     User[User Entry (Card #)] -->|TLS/HTTPS| API[API Gateway]
     API --> FPE[Encrypt Middle Digits (FF1/FF3)]

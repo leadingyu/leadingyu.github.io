@@ -49,8 +49,8 @@ There are **multiple FPE algorithms**. 1 common, standards-based approache
 
 ## 4. **Example System Design (Simplified):**
 
-
-```mermaid
+{% raw %}
+<div class="mermaid">
 graph TD
     User[User Entry (Card #)] -->|TLS/HTTPS| API[API Gateway]
     API --> FPE[Encrypt Middle Digits (FF1/FF3)]
@@ -59,8 +59,8 @@ graph TD
     App -->|With Permission| KMS[Key Management Service (FPE Key)]
     KMS --> App
     App -->|Decrypt if needed| PAN[Clear PAN (only for authorized process; normally the service is living in PCI env)]
-
-```
+</div>
+{% endraw %}
 
 ## 5. **Summary & Recommendations**
 

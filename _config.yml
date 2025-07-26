@@ -67,6 +67,8 @@ paths:
   archive : # "/archive.html" (default)
   rss     : # "/feed.xml" (default)
 
+head:
+  custom: true
 
 ## => Post
 ##############################
@@ -88,7 +90,7 @@ mathjax: # false (default), true
 mathjax_autoNumber: # false (default), true
 
 ## Mermaid
-mermaid: true
+mermaid: false
 
 ## Chart
 chart: # false (default), true

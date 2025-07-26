@@ -67,8 +67,6 @@ paths:
   archive : # "/archive.html" (default)
   rss     : # "/feed.xml" (default)
 
-head:
-  custom: true
 
 ## => Post
 ##############################

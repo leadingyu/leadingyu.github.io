@@ -76,8 +76,6 @@ flowchart TD
   
 ### Engineering
 
-- Store only what is needed (BIN/last-4); never log full PAN, even in FPE form, unless business-justified.
+- Store only what is needed (BIN first-6 and last-4); never log full PAN, even in FPE form, unless business-justified.
 
 - All cryptographic operations (encrypt/decrypt) are logged and auditable.
-
-- Rotate keys periodically, and have an incident response plan for key compromise.

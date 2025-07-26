@@ -55,6 +55,15 @@ There are **multiple FPE algorithms**. 1 common, standards-based approache
 
 ## 4. **Example System Design (Simplified):**
 
+
+```mermaid
+graph LR
+   A --> B
+   A -->C
+   C -->D
+
+```
+
 ```mermaid
 flowchart TD
     User[User Entry (Card #)] -->|TLS/HTTPS| API[API Gateway]

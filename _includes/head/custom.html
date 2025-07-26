@@ -1,3 +1,18 @@
 <!-- start custom head snippets -->
+<!-- Mermaid support -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("pre > code.language-mermaid").forEach((block) => {
+      const pre = block.parentNode;
+      const container = document.createElement("div");
+      container.className = "mermaid";
+      container.textContent = block.textContent;
+      pre.replaceWith(container);
+    });
+
+    mermaid.initialize({ startOnLoad: true });
+  });
+</script>
 
 <!-- end custom head snippets -->

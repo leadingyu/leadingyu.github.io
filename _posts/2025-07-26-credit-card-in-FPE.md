@@ -1,3 +1,9 @@
+---
+layout: post
+title: "Credit Card in FPE"
+date: 2025-07-26
+---
+
 ## 1. **What is FPE (Format-Preserving Encryption)?**
 
 **Format-Preserving Encryption** is a type of encryption where the **output (ciphertext)** has the same format as the **input (plaintext)**. For credit card numbers, this means the encrypted value still "looks like" a credit card number (same length, numeric only, and may still pass Luhn checks if required).
@@ -49,8 +55,7 @@ There are **multiple FPE algorithms**. 1 common, standards-based approache
 
 ## 4. **Example System Design (Simplified):**
 
-{% raw %}
-<div class="mermaid">
+```mermaid
 graph TD
     User[User Entry (Card #)] -->|TLS/HTTPS| API[API Gateway]
     API --> FPE[Encrypt Middle Digits (FF1/FF3)]
@@ -59,8 +64,7 @@ graph TD
     App -->|With Permission| KMS[Key Management Service (FPE Key)]
     KMS --> App
     App -->|Decrypt if needed| PAN[Clear PAN (only for authorized process; normally the service is living in PCI env)]
-</div>
-{% endraw %}
+```
 
 ## 5. **Summary & Recommendations**
 

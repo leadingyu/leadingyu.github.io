@@ -3,7 +3,7 @@
 ---
 
 @import
-
+    "jekyll-text-theme"
     "skins/{{ site.text_skin | default: site.data.variables.default.text_skin }}",
     // "skins/chocolate",
     // "skins/dark",

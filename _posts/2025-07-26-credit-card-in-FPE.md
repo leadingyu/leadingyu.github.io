@@ -56,14 +56,15 @@ There are **multiple FPE algorithms**. 1 common, standards-based approache
 ## 4. **Example System Design (Simplified):**
 
 ```mermaid
-graph TD
-    User[User Entry (Card #)] -->|TLS/HTTPS| API[API Gateway]
-    API --> FPE[Encrypt Middle Digits (FF1/FF3)]
-    FPE --> DB[(Database)]
-    DB --> App[Payment Service]
-    App -->|With Permission| KMS[Key Management Service (FPE Key)]
+flowchart TD
+    User["User Entry (Card #)"] -->|"TLS/HTTPS"| API["API Gateway"]
+    API --> FPE["Encrypt Middle Digits (FF1/FF3)"]
+    FPE --> DB["Database"]
+    DB --> App["Payment Service"]
+    App -->|"With Permission"| KMS["Key Management Service (FPE Key)"]
     KMS --> App
-    App -->|Decrypt if needed| PAN[Clear PAN (only for authorized process; normally the service is living in PCI env)]
+    App -->|"Decrypt if needed"| PAN["Clear PAN (only for authorized process; normally the service is living in PCI env)"]
+
 ```
 
 

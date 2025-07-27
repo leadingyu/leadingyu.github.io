@@ -55,6 +55,13 @@ There are **multiple FPE algorithms**. 1 common, standards-based approache
 
 ## 4. **Example System Design (Simplified):**
 
+```mermaid
+graph TD
+  A[Start] --> B{Is it working?}
+  B -- Yes --> C[Celebrate]
+  B -- No --> D[Debug]
+  D --> B
+```
 
 ```mermaid
 flowchart TD

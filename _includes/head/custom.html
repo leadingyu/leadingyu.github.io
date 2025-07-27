@@ -1,3 +1,21 @@
 <!-- start custom head snippets -->
+<!-- Load latest mermaid.js -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Convert <pre><code class="language-mermaid">...</code></pre> to <div class="mermaid">...</div>
+    document.querySelectorAll("pre > code.language-mermaid").forEach(function (codeBlock) {
+      const pre = codeBlock.parentElement;
+      const mermaidDiv = document.createElement("div");
+      mermaidDiv.className = "mermaid";
+      mermaidDiv.textContent = codeBlock.textContent;
+      pre.replaceWith(mermaidDiv);
+    });
+
+    // Initialize mermaid after conversion
+    mermaid.initialize({ startOnLoad: true });
+  });
+</script>
 
 <!-- end custom head snippets -->

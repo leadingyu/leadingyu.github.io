@@ -59,11 +59,11 @@ There are **multiple FPE algorithms**. 1 common, standards-based approache
 flowchart TD
     User["User Entry (Card #)"] -->|"TLS/HTTPS"| API["API Gateway"]
     API --> FPE["Encrypt Middle Digits (FF1/FF3)"]
-    FPE --> DB["Database"]
+    FPE --> DB["Vault Database"]
     DB --> App["Payment Service"]
-    App -->|"With Permission"| KMS["Key Management Service (FPE Key)"]
-    KMS --> App
-    App -->|"Decrypt if needed"| PAN["Clear PAN (only for authorized process; normally the service is living in PCI env)"]
+    App -->|"Request with Permission"| KMS["Key Management Service (FPE Key)"]
+    KMS -->|"Return FPE"| App
+    App -->|"Decrypted PAN"| PCI_SERVICE["authorized process(normally the service is living in PCI env)"]
 
 ```
 

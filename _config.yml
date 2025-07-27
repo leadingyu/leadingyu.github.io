@@ -215,6 +215,8 @@ defaults:
       show_subscribe: true
       pageview: true
 
+head:
+  custom: true
 
 ## => Plugins
 ##############################
@@ -223,3 +225,5 @@ plugins:
   - jekyll-paginate
   - jekyll-sitemap
   - jemoji
+  - jekyll-seo-tag
+  - jekyll-gfm

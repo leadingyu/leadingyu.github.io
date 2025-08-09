@@ -1,4 +1,0 @@
-Sitemap: https://leadingyu.github.io/sitemapindex.xml
-
-User-Agent: *
-Host: leadingyu.github.io

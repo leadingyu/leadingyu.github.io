@@ -23,7 +23,7 @@ BLOG_TITLE = "Liding's blogs"  # (translatable)
 SITE_URL = "https://leadingyu.github.io/"
 # This is the URL where Nikola's output will be deployed.
 # If not set, defaults to SITE_URL
-# BASE_URL = "https://leadingyu.github.io/"
+BASE_URL = "https://leadingyu.github.io/"
 BLOG_EMAIL = "lidingyu.hust@gmail.com"
 BLOG_DESCRIPTION = "simple blogs"  # (translatable)
 

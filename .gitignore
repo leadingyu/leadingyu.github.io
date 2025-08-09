@@ -15,7 +15,6 @@ Thumbs.db
 *~
 
 .jekyll-cache/
-output/
 cache/
 
 # Ignore Python cache files

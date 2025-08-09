@@ -167,6 +167,16 @@ It enables legacy payment systems, databases, APIs, and message formats to store
 <h3>4. <strong>Example System Design (Simplified):</strong>
 </h3>
 <p><img alt="Flowchart" src="../../../images/test.png" title="Simplified flowchart"></p>
+<div class="code"><pre class="code literal-block"><span class="nf">graph</span><span class="w"> </span><span class="n">TD</span>
+<span class="w">    </span><span class="n">User</span><span class="p">[</span><span class="s">"User Entry (Card #)"</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;|</span><span class="s">"TLS/HTTPS"</span><span class="o">|</span><span class="w"> </span><span class="n">API</span><span class="p">[</span><span class="s">"API Gateway"</span><span class="p">]</span>
+<span class="w">    </span><span class="n">API</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">FPE</span><span class="p">[</span><span class="s">"Encrypt Middle Digits (FF1/FF3)"</span><span class="p">]</span>
+<span class="w">    </span><span class="n">FPE</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">DB</span><span class="p">[</span><span class="s">"Vault Database"</span><span class="p">]</span>
+<span class="w">    </span><span class="n">DB</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">App</span><span class="p">[</span><span class="s">"Payment Service"</span><span class="p">]</span>
+<span class="w">    </span><span class="n">App</span><span class="w"> </span><span class="o">--&gt;|</span><span class="s">"Request with Permission"</span><span class="o">|</span><span class="w"> </span><span class="n">KMS</span><span class="p">[</span><span class="s">"Key Management Service (FPE Key)"</span><span class="p">]</span>
+<span class="w">    </span><span class="n">KMS</span><span class="w"> </span><span class="o">--&gt;|</span><span class="s">"Return FPE"</span><span class="o">|</span><span class="w"> </span><span class="n">App</span>
+<span class="w">    </span><span class="n">App</span><span class="w"> </span><span class="o">--&gt;|</span><span class="s">"Decrypted PAN"</span><span class="o">|</span><span class="w"> </span><span class="n">PCI_SERVICE</span><span class="p">[</span><span class="s">"authorized process(normally the service is living in PCI env)"</span><span class="p">]</span>
+</pre></div>
+
 <h3>5. <strong>Summary &amp; Recommendations</strong>
 </h3>
 <h4>Security</h4>

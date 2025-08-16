@@ -11,7 +11,7 @@
 <meta name="generator" content="Nikola (getnikola.com)">
 <link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="rss.xml">
 <link rel="canonical" href="https://leadingyu.github.io/">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/2025-07-26-credit-card-in-fpe/" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/hamilton-method/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -68,7 +68,66 @@
     
         
     <div class="postindex">
-            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/2025-07-26-credit-card-in-fpe/" class="u-url">Credit card in FPE</a></h1>
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/hamilton-method/" class="u-url">Hamilton's Method</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Liding
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/hamilton-method/" rel="bookmark">
+            <time class="published dt-published" datetime="2025-08-16T16:02:43-07:00" itemprop="datePublished" title="2025-08-16 16:02">2025-08-16 16:02</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <p>Totally—here’s what the Largest Remainder (Hamilton) method is doing in our break allocator, and why it’s a good fit.</p>
+<h4>What problem are we solving?</h4>
+<p>We have a fixed break budget (in 30-minute units) and k = (number of meetings − 1) break slots (one after each meeting except the last). We want to split that budget proportionally to the “weight” of each slot (the weight = the preceding meeting’s duration), while keeping:</p>
+<p>total assigned = total budget,</p>
+<p>longer meeting ⇒ longer (or equal) break,</p>
+<p>:00/:30 alignment (so we only deal in multiples of 30 minutes).</p>
+<h4>Hamilton method in a nutshell</h4>
+<p>Given:</p>
+<p>integer total units (break budget in 30-min chunks),</p>
+<p>positive weights w[i] (here: hours of the meeting before break i), i = 0..k-1.</p>
+<p>Steps:</p>
+<p>Compute ideal shares (as real numbers):</p>
+<div class="code"><pre class="code literal-block"><span class="n">ideal</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">units</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">w</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">sumW</span>
+</pre></div>
+
+<p>Floor each ideal:</p>
+<div class="code"><pre class="code literal-block"><span class="n">base</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">floor</span><span class="p">(</span><span class="n">ideal</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">)</span>
+</pre></div>
+
+<p>Count remainder units to distribute:</p>
+<div class="code"><pre class="code literal-block"><span class="n">remaining</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">units</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">base</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">)</span>
+</pre></div>
+
+<p>Sort slots by descending fractional parts of ideal[i] (i.e., ideal[i] - base[i]).
+(Tie-breakers we use: larger weight first, then earlier index.)</p>
+<p>Give one extra unit to the top remaining slots from that order:</p>
+<div class="code"><pre class="code literal-block"><span class="n">base</span><span class="o">[</span><span class="n">idx_j</span><span class="o">]++</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.</span><span class="p">.</span><span class="n">remaining</span><span class="o">-</span><span class="mi">1</span>
+</pre></div>
+
+<p>Convert units → minutes: break[i] = base[i] * 30.</p>
+<p>This guarantees:</p>
+<ul>
+<li>
+<p>The total exactly matches the budget,</p>
+</li>
+<li>
+<p>Each slot’s share is as close as possible to the proportional ideal (in an L1 sense, given unit granularity),</p>
+</li>
+<li>
+<p>No fractional 10-minute weirdness; everything aligns to :00/:30.</p>
+</li>
+</ul>
+<p><strong>Code snippet</strong>: <a href="https://github.com/leadingyu/small_tools/blob/main/OOD/schedule_meeting/DynamicMeetingScheduler.java">https://github.com/leadingyu/small_tools/blob/main/OOD/schedule_meeting/DynamicMeetingScheduler.java</a></p>
+<h4>Why it’s good here</h4>
+<p>Proportional fairness: longer meetings tend to get more break time.</p>
+<p>Granularity-aware: we must use 30-min blocks; Hamilton rounds fairly.</p>
+<p>Deterministic &amp; simple: O(k log k) due to one sort on at most 6 slots (since workday is small).</p>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/2025-07-26-credit-card-in-fpe/" class="u-url">Credit card in FPE</a></h1>
                 <div class="metadata">
                     <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                         Liding

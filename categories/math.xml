@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Liding's blogs (Posts about math)</title><link>https://leadingyu.github.io/</link><description></description><atom:link href="https://leadingyu.github.io/categories/math.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2025 &lt;a href="mailto:lidingyu.hust@gmail.com"&gt;Liding&lt;/a&gt; </copyright><lastBuildDate>Sat, 16 Aug 2025 23:14:21 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Hamilton's Method</title><link>https://leadingyu.github.io/posts/hamilton-method/</link><dc:creator>Liding</dc:creator><description>&lt;p&gt;Totally—here’s what the Largest Remainder (Hamilton) method is doing in our break allocator, and why it’s a good fit.&lt;/p&gt;
+&lt;h4&gt;What problem are we solving?&lt;/h4&gt;
+&lt;p&gt;We have a fixed break budget (in 30-minute units) and k = (number of meetings − 1) break slots (one after each meeting except the last). We want to split that budget proportionally to the “weight” of each slot (the weight = the preceding meeting’s duration), while keeping:&lt;/p&gt;
+&lt;p&gt;total assigned = total budget,&lt;/p&gt;
+&lt;p&gt;longer meeting ⇒ longer (or equal) break,&lt;/p&gt;
+&lt;p&gt;:00/:30 alignment (so we only deal in multiples of 30 minutes).&lt;/p&gt;
+&lt;h4&gt;Hamilton method in a nutshell&lt;/h4&gt;
+&lt;p&gt;Given:&lt;/p&gt;
+&lt;p&gt;integer total units (break budget in 30-min chunks),&lt;/p&gt;
+&lt;p&gt;positive weights w[i] (here: hours of the meeting before break i), i = 0..k-1.&lt;/p&gt;
+&lt;p&gt;Steps:&lt;/p&gt;
+&lt;p&gt;Compute ideal shares (as real numbers):&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="n"&gt;ideal&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;units&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;sumW&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Floor each ideal:&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="n"&gt;base&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;floor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ideal&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Count remainder units to distribute:&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="n"&gt;remaining&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;units&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;base&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Sort slots by descending fractional parts of ideal[i] (i.e., ideal[i] - base[i]).
+(Tie-breakers we use: larger weight first, then earlier index.)&lt;/p&gt;
+&lt;p&gt;Give one extra unit to the top remaining slots from that order:&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="n"&gt;base&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;idx_j&lt;/span&gt;&lt;span class="o"&gt;]++&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;0.&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;remaining&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Convert units → minutes: break[i] = base[i] * 30.&lt;/p&gt;
+&lt;p&gt;This guarantees:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The total exactly matches the budget,&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Each slot’s share is as close as possible to the proportional ideal (in an L1 sense, given unit granularity),&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;No fractional 10-minute weirdness; everything aligns to :00/:30.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Code snippet&lt;/strong&gt;: &lt;a href="https://github.com/leadingyu/small_tools/blob/main/OOD/schedule_meeting/DynamicMeetingScheduler.java"&gt;https://github.com/leadingyu/small_tools/blob/main/OOD/schedule_meeting/DynamicMeetingScheduler.java&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;Why it’s good here&lt;/h4&gt;
+&lt;p&gt;Proportional fairness: longer meetings tend to get more break time.&lt;/p&gt;
+&lt;p&gt;Granularity-aware: we must use 30-min blocks; Hamilton rounds fairly.&lt;/p&gt;
+&lt;p&gt;Deterministic &amp;amp; simple: O(k log k) due to one sort on at most 6 slots (since workday is small).&lt;/p&gt;</description><category>algorithm</category><category>math</category><guid>https://leadingyu.github.io/posts/hamilton-method/</guid><pubDate>Sat, 16 Aug 2025 23:02:43 GMT</pubDate></item></channel></rss>

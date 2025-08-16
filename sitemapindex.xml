@@ -10,12 +10,20 @@
   <lastmod>2025-08-09T23:08:00Z</lastmod>
  </sitemap>
  <sitemap>
+  <loc>https://leadingyu.github.io/categories/algorithm.xml</loc>
+  <lastmod>2025-08-16T23:12:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://leadingyu.github.io/categories/brain-teaser.xml</loc>
   <lastmod>2025-08-09T23:08:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://leadingyu.github.io/categories/credit-card.xml</loc>
   <lastmod>2025-08-09T23:08:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://leadingyu.github.io/categories/math.xml</loc>
+  <lastmod>2025-08-16T23:12:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://leadingyu.github.io/categories/security.xml</loc>
@@ -31,10 +39,10 @@
  </sitemap>
  <sitemap>
   <loc>https://leadingyu.github.io/rss.xml</loc>
-  <lastmod>2025-08-09T23:08:00Z</lastmod>
+  <lastmod>2025-08-16T23:12:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://leadingyu.github.io/sitemap.xml</loc>
-  <lastmod>2025-08-09T23:08:00Z</lastmod>
+  <lastmod>2025-08-16T23:12:00Z</lastmod>
  </sitemap>
 </sitemapindex>

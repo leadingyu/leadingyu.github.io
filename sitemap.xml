@@ -15,15 +15,19 @@
  </url>
  <url>
   <loc>https://leadingyu.github.io/archive.html</loc>
-  <lastmod>2025-08-09T23:08:00Z</lastmod>
+  <lastmod>2025-08-16T23:12:00Z</lastmod>
  </url>
  <url>
   <loc>https://leadingyu.github.io/categories/</loc>
-  <lastmod>2025-08-09T22:42:00Z</lastmod>
+  <lastmod>2025-08-16T23:12:00Z</lastmod>
  </url>
  <url>
   <loc>https://leadingyu.github.io/categories/algorithem/</loc>
   <lastmod>2025-08-09T22:42:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://leadingyu.github.io/categories/algorithm/</loc>
+  <lastmod>2025-08-16T23:12:00Z</lastmod>
  </url>
  <url>
   <loc>https://leadingyu.github.io/categories/brain-teaser/</loc>
@@ -32,6 +36,10 @@
  <url>
   <loc>https://leadingyu.github.io/categories/credit-card/</loc>
   <lastmod>2025-08-09T22:42:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://leadingyu.github.io/categories/math/</loc>
+  <lastmod>2025-08-16T23:12:00Z</lastmod>
  </url>
  <url>
   <loc>https://leadingyu.github.io/categories/security/</loc>
@@ -124,5 +132,9 @@
  <url>
   <loc>https://leadingyu.github.io/posts/2025-07-27-fox-chicken-grain-problem/</loc>
   <lastmod>2025-08-09T22:42:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://leadingyu.github.io/posts/hamilton-method/</loc>
+  <lastmod>2025-08-16T23:12:00Z</lastmod>
  </url>
 </urlset>
